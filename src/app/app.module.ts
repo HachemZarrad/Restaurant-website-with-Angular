@@ -36,6 +36,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSliderModule} from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+import { baseURL } from './shared/baseurl';
 import { from } from 'rxjs';
 
 @NgModule({
@@ -70,9 +72,11 @@ import { from } from 'rxjs';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatSliderModule,
+    HttpClientModule
     
   ],
-  providers: [DishService, PromotionService, LeaderService],
+  providers: [DishService, PromotionService, LeaderService,
+     {provide: 'BaseURL', useValue: baseURL}],
 
   entryComponents: [
     LoginComponent
