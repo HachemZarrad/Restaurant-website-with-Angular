@@ -33,7 +33,7 @@
       </mat-card>
   </div>
 
-  <div [hidden] = "dish || errMsg">
+  <div [hidden] = "dish || errMess">
     <mat-spinner></mat-spinner>
     <h4>Loading . . . Please Wait</h4>
   </div>
@@ -59,7 +59,7 @@
       </mat-card-content>
     
     
-      <mat-card-content *ngIf="!formErrors.author && !formErrors.comment && !pristine">
+      <mat-card-content *ngIf="!formErrors.author && !formErrors.comment && commentForm.value.comment">
         <mat-list>
           <mat-list-item >
             <h1 matLine> {{commentForm.value.comment}} </h1>
