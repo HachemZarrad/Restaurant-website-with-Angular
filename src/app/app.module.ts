@@ -40,6 +40,7 @@ import { MatSliderModule} from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { baseURL } from './shared/baseurl';
 import { from } from 'rxjs';
+import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { from } from 'rxjs';
     HomeComponent,
     ContactComponent,
     LoginComponent,
+    HighlightDirective,
   ],
   imports: [
     MatGridListModule,
