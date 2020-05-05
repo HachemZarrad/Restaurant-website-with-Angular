@@ -38,9 +38,8 @@
 
   <div fxFlex fxFlexOffset="20px" class="form-size">
     <h3>Send us your Feedback</h3>
-    <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
 
-    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()" *ngIf = "!submitted" [@expand]>
       <p>
         <mat-form-field class="half-width">
           <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
@@ -75,11 +74,39 @@
         </table>
       <p>
         <mat-form-field class="full-width">
-          <textarea matInput formControlName="message" placeholder="Your Feedback" rows=12></textarea>
+          <textarea matInput formControlName="message" placeholder="Your Feedback" rows=12 required></textarea>
         </mat-form-field>
       </p>
-      <button type="submit" mat-button class="background-primary text-floral-white">Submit</button>
+      <button type="submit" [disabled] = 'fform.form.invalid' mat-button class="background-primary text-floral-white">Submit</button>
     </form>
+
+    <div [hidden] = "((uploadedFeedback || errMess))" *ngIf = "submitted">
+      <h3>Submitting Form</h3>
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <div  *ngIf="errMess && submitted" [@expand]>
+      <h2>Error</h2>
+      <h4>{{errMess}}</h4>
+    </div>
+  
+    <div  *ngIf="uploadedFeedback && submitted" [@expand]>
+      <h3>Your Submission</h3>
+      <mat-list>
+        <mat-list-item>
+          <h2 matLine> First Name: {{uploadedFeedback.firstname}}</h2>
+          <h2 matLine> Last Name: {{uploadedFeedback.lastname}}</h2>
+          <h2 matLine> Tel.Number: {{uploadedFeedback.telnum}}</h2>
+          <h2 matLine> Email: {{uploadedFeedback.email}}</h2>
+          <h2 matLine> Contact You?: {{uploadedFeedback.agree}}</h2>
+          <h2 matLine> How?: {{uploadedFeedback.contacttype}}</h2>
+          <h2 matLine> Feedback: {{uploadedFeedback.message}}</h2>
+      </mat-list-item>
+    </mat-list>
+    </div>
+
   </div>
+
+  
 </div>
 
