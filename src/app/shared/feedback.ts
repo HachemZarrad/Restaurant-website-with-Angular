@@ -1,4 +1,5 @@
 export class Feedback {
+    
     firstname: string;
     lastname: string;
     telnum: number;
@@ -6,6 +7,7 @@ export class Feedback {
     agree: boolean;
     contacttype: string;
     message: string;
-};
+    _id: string;
+}
 
 export const ContactType = ['None', 'Tel', 'Email'];

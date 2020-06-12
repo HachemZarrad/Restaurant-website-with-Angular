@@ -1,0 +1,49 @@
+<div class="container"
+fxLayout="column"
+fxLayoutGap="10px">
+
+<div fxFlex>
+<div fxLayout="row" fxLayoutAlign="none center">
+ <h3 fxFlex="80%">Promotions Offered By The Restaurant</h3>
+ <span class="flex-spacer"></span> 
+ <mat-slide-toggle fxFlex
+ [(ngModel)]="delete"
+ [color]="Warn">
+ Delete!
+ </mat-slide-toggle>
+</div>
+<hr>
+</div>
+
+<div *ngIf="promotions || errMess else loading">
+
+    <div fxFlex *ngIf="promotions" [@expand]>
+      <mat-grid-list cols="2" rowHeight="200px">
+        <mat-grid-tile *ngFor="let promo of promotions">
+          <div [routerLink]="['/updatePromo', promo._id]" appHighlight>
+          <img height="200px" src="{{baseURL + promo.image}}" alt={{promo.name}}>
+          </div>
+          <mat-grid-tile-footer>
+            <h1 mat-line>{{promo.name | uppercase}}</h1>
+            <span class="flex-spacer"></span>
+            <button mat-icon-button *ngIf="delete" (click)="deletePromo(promo._id)">
+              <span style="color: red;" class="fa fa-times fa-lg"></span>
+            </button>
+          </mat-grid-tile-footer>
+        </mat-grid-tile>
+       </mat-grid-list><br><br>
+       <button mat-button routerLink = "/administration"><span class="fa fa-arrow-left fa-lg"></span></button>
+       <div><img src="/assets/images/Plus.png" alt="" height="80px;" style="margin-left: 1200px;" (click) = "openPromoForm()"></div>
+    </div>
+      
+  
+
+<div *ngIf="errMess">
+<h2>Error</h2>
+<h4>{{errMess}}</h4>
+</div>
+</div>
+<ng-template #loading>
+  <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+</ng-template>
+</div>

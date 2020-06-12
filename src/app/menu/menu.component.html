@@ -1,6 +1,7 @@
 <div class="container"
      fxLayout="column"
-     fxLayoutGap="10px">
+     fxLayoutGap="10px"
+     (click) = "emptyList()">
 
   <div fxFlex>
     <div>
@@ -9,25 +10,34 @@
     </div>
   </div>
 
-  <div fxFlex *ngIf = "dishes" [@expand]>
-    <mat-grid-list cols="2" rowHeight="200px">
-      <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]" appHighlight>
-        <img height="200px" src="{{ baseURL + dish.image }}" alt={{dish.name}}>
+
+  <div class=" alert alert-info">
+    <input #inputsearch type="text" class="form-control" (keyup)="searchResult(inputsearch)" class="marginSearchBar">
+  </div>
+  
+  <div>
+    <ol *ngFor="let dish of listOfDishes">
+      <ul class="list-group-item" (click)="onSelectDish(dish)">
+        <img src="{{ baseURL + dish.image}}" class="searchBarImg"> {{ dish.name }}
+      </ul>
+    </ol>
+  </div>
+
+  <div fxFlex *ngIf="dishes" [@expand]>
+    <mat-grid-list cols="2" rowHeight="200px" style="margin-top: 80px;">
+      <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish._id]" appHighlight>
+        <img height="200px" src="{{ baseURL + dish.image}}" alt={{dish.name}}>
         <mat-grid-tile-footer>
-          <h1>{{dish.name | uppercase}}</h1>
+          <h1 matLine>{{dish.name | uppercase}}</h1>
         </mat-grid-tile-footer>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
-
-  <div [hidden] = "dishes || errMess">
-    <mat-spinner></mat-spinner>
-    <h4>Loading . . . Please Wait</h4>
+  <div [hidden]="dishes || errMess">
+      <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
   </div>
-
-  <div fxFlex *ngIf="errMess">
+  <div *ngIf="errMess">
     <h2>Error</h2>
     <h4>{{errMess}}</h4>
   </div>
-  
 </div>

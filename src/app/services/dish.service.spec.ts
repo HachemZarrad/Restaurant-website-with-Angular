@@ -1,12 +1,15 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { DishService } from './dish.service';
 
 describe('DishService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
-
-  it('should be created', () => {
-    const service: DishService = TestBed.get(DishService);
-    expect(service).toBeTruthy();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [DishService]
+    });
   });
+
+  it('should be created', inject([DishService], (service: DishService) => {
+    expect(service).toBeTruthy();
+  }));
 });

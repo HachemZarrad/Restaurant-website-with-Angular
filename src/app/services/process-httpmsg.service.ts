@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -15,7 +16,7 @@ export class ProcessHTTPMsgService {
     if (error.error instanceof ErrorEvent) {
       errMsg = error.error.message;
     } else {
-      errMsg = `${error.status} - ${error.statusText || ''} ${error.error}`;
+      errMsg = `${error.status} - ${error.statusText || ''} ${error.message}`;
     }
 
     return throwError(errMsg);

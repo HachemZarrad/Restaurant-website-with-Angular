@@ -1,0 +1,28 @@
+<div *ngIf = "feedback" >
+  <mat-card style="width: 450px;" class="marginCard">
+  <p>First Name: {{feedback.firstname}}</p>
+  <p>Last Name: {{feedback.lastname}}</p>
+  <p>Tel. Number: {{feedback.telnum}}</p>
+  <p>Email: {{feedback.email}}</p>
+  <p>Contact You?: {{feedback.agree}}</p>
+  <p>How?: {{feedback.contacttype}}</p>
+  <p>Feedback: {{feedback.message}}</p>
+  <button (click) = "goBack()" class="button">Back</button>
+  <button  (click)="deleteFeedback(feedback._id)" class="button"> Delete </button>
+</mat-card>
+  <mat-grid-tile-footer>
+    <span class="flex-spacer"></span>
+  </mat-grid-tile-footer>
+
+  
+</div>
+
+<div [hidden]="feedback || errMess">
+  <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+</div>
+
+<div *ngIf="errMess">
+<h2>Error</h2>
+<h4>{{errMess}}</h4>
+</div>
+

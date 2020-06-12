@@ -1,0 +1,66 @@
+<div class="container"
+fxLayout="column"
+fxLayoutGap="10px"
+(click) = "emptyList()">
+
+<div fxFlex>
+<div fxLayout="row" fxLayoutAlign="none center">
+ <h3 fxFlex="80%">Client's Feedbacks</h3>
+ <span class="flex-spacer"></span> 
+ <mat-slide-toggle fxFlex
+ [(ngModel)]="delete"
+ [color]="Warn">
+ Delete!
+ </mat-slide-toggle>
+</div>
+<hr>
+</div>
+
+<div class=" alert alert-info">
+  <button mat-button routerLink = "/clients" ><span class="fa fa-arrow-left fa-lg"></span></button>
+  <input #inputsearch type="text" class="form-control" (keyup)="searchResult(inputsearch)" class="marginSearchBar" placeholder="Search Here">
+</div>
+
+<div>
+  <ol *ngFor="let feedback of FeedbackList" >
+    <ul class="list-group-item" (click)="onSelectFeedback(feedback)">
+      <img src="/assets/images/avatar.png" class="searchBarImg"> {{ feedback.firstname }} {{feedback.lastname}}
+    </ul>
+  </ol>
+</div>
+
+<div *ngIf="feedbacks || errMess else loading">
+
+<div fxFlex *ngIf="feedbacks" [@expand]>
+  <mat-grid-list cols="2" rowHeight="400px">
+    <mat-grid-tile *ngFor="let feedback of feedbacks"  appHighlight>
+      <mat-card style="width: 600px;">
+      <p>First Name: {{feedback.firstname}}</p>
+      <p>Last Name: {{feedback.lastname}}</p>
+      <p>Tel. Number: {{feedback.telnum}}</p>
+      <p>Email: {{feedback.email}}</p>
+      <p>Contact You?: {{feedback.agree}}</p>
+      <p>How?: {{feedback.contacttype}}</p>
+      <p>Feedback: {{feedback.message}}</p>
+      
+    </mat-card>
+      <mat-grid-tile-footer>
+        <span class="flex-spacer"></span>
+        {{feedback.firstname}} {{feedback.lastname}}
+       <button mat-icon-button *ngIf="delete" (click)="deleteFeedback(feedback._id)">
+       <span style="color: red;" class="fa fa-times fa-lg"></span>
+     </button>
+      </mat-grid-tile-footer>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<div *ngIf="errMess">
+<h2>Error</h2>
+<h4>{{errMess}}</h4>
+</div>
+</div>
+<ng-template #loading>
+  <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+</ng-template>
+</div>

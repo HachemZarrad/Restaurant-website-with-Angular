@@ -1,0 +1,60 @@
+<mat-toolbar color="primary">
+  New Dish
+<span class="flex-spacer"></span>
+<button mat-button mat-dialog-close (click) = 'refresh()'>&times;</button>
+</mat-toolbar>
+
+<div *ngIf="errMess">
+<h2>Error</h2>
+<h4>{{errMess}}</h4>
+</div>
+
+<p>
+    <input *ngIf = "!dishAdded" type="file" name="image" (change)="upload($event)"/>
+</p>
+
+<h1 *ngIf = "dishAdded">Dish added successfully</h1>
+
+<form novalidate *ngIf = "!dishAdded" #dishForm="ngForm">
+
+<mat-dialog-content>
+  <p>
+    <mat-form-field>
+      <input matInput placeholder=" name"  [(ngModel)]="dish.name" name="name"  #name="ngModel" required>
+      <mat-error *ngIf="name.errors?.required">dish name is required</mat-error>
+    </mat-form-field>
+  </p>
+  
+  <p>
+    <mat-form-field>
+      <input matInput placeholder="category"  [(ngModel)]="dish.category" name="category" #category="ngModel">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field>
+      <input matInput placeholder="label"  [(ngModel)]="dish.label" name="label" #label="ngModel">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field>
+      <input matInput placeholder="price"  [(ngModel)]="dish.price" name="label" #price="ngModel" required>
+      <mat-error *ngIf="price.errors?.required">price is required</mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-checkbox [(ngModel)]="dish.featured" name="featured">Featured dish</mat-checkbox>
+  </p>
+  <p>
+    <mat-form-field class="full-width">
+      <textarea matInput placeholder="description"  [(ngModel)]="dish.description" name="description" #description="ngModel" required rows=12></textarea>
+      <mat-error *ngIf="description.errors?.required">description is required</mat-error>
+    </mat-form-field>
+  </p>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <span class="flex-spacer"></span>
+  <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="dishForm.form.invalid" (click) = 'addDish(dish)'>Add dish</button>
+</mat-dialog-actions>
+</form>
+

@@ -13,8 +13,8 @@
     <div fxLayout="column" fxLayout.gt-sm="row">
       <div fxFlex="70">
         <h2>Our History</h2>
-        <p>Started in 2010, Ristorante con Fusion quickly established itself as a culinary icon par excellence in Hong Kong. With its unique brand of world fusion cuisine that can be found nowhere else, it enjoys patronage from the A-list clientele in Hong Kong.  Featuring four of the best three-star Michelin chefs in the world, you never know what will arrive on your plate the next time you visit us.</p>
-        <p>The restaurant traces its humble beginnings to <em>The Frying Pan</em>, a successful chain started by our CEO, Mr. Peter Pan, that featured for the first time the world's best cuisines in a pan.</p>
+        <p>Started in 2013, Hech restaurant quickly established itself as a culinary icon par excellence in USA. With its unique brand of world fusion cuisine that can be found nowhere else, it enjoys patronage from the A-list clientele in USA.  Featuring four of the best three-star Michelin chefs in the world, you never know what will arrive on your plate the next time you visit us.</p>
+        <p>The restaurant traces its humble beginnings to <em>The Frying Pan</em>, a successful chain started by our CEO, Mr. Zlatan, that featured for the first time the world's best cuisines in a pan.</p>
       </div>
       <div fxFlex="30">
         <mat-card>
@@ -28,7 +28,7 @@
               <dt>Started</dt>
               <dd>3 Feb. 2013</dd>
               <dt>Major Stake Holder</dt>
-              <dd>HK Fine Foods Inc.</dd>
+              <dd>USA Fine Foods Inc.</dd>
               <dt>Last Year's Turnover</dt>
               <dd>$1,250,375</dd>
               <dt>Employees</dt>
@@ -56,30 +56,21 @@
 
   <div fxFlex>
     <h2>Corporate Leadership</h2>
-  <div *ngIf = "leaders"  [@expand]>
-    <mat-list fxFlex>
-      <mat-list-item *ngFor="let leader of leaders">
-        {{leader.image}}
-        <img matListAvatar src="{{baseURL + leader.image}}" alt={{leader.name}}>
-        <h1 matLine> {{leader.name}} </h1>
-        <p matLine>
-          <span> {{leader.designation}} </span>
-        </p>
-        <p matLine>
-          <span> {{leader.description}} </span>
-        </p>
-      </mat-list-item>
-    </mat-list>
+    <mat-list *ngIf="leaders" [@expand]>
+        <mat-list-item *ngFor="let leader of leaders">
+          <img mat-list-avatar src="{{ baseURL + leader.image }}" alt={{leader.name}}>
+          <h4 matLine> {{leader.name}} {{leader.abbr}}</h4>
+            <p matLine> {{leader.designation}}</p>
+            <p matLine>{{leader.description}}
+            </p>
+        </mat-list-item>
+      </mat-list>
+      <div [hidden]="leaders || errMess">
+          <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+      </div>
+      <div *ngIf="errMess">
+        <h2>Error</h2>
+        <h4>{{errMess}}</h4>
+      </div>
   </div>
-
-  <div [hidden] = "leaders || errMess">
-    <mat-spinner></mat-spinner>
-    <h4>Loading . . . Please Wait</h4>
-  </div>
-
-  <div fxFlex *ngIf="errMess">
-    <h2>Error</h2>
-    <h4>{{errMess}}</h4>
-  </div>
-
 </div>

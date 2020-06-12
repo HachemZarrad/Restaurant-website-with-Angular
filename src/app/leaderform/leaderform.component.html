@@ -1,0 +1,56 @@
+<mat-toolbar color="primary">
+  New Leader
+<span class="flex-spacer"></span>
+<button mat-button mat-dialog-close (click) = 'refresh()'>&times;</button>
+</mat-toolbar>
+
+<div *ngIf="errMess">
+<h2>Error</h2>
+<h4>{{errMess}}</h4>
+</div>
+
+<p>
+    <input *ngIf = "!leaderAdded" type="file" name="image" (change)="upload($event)"/>
+</p>
+
+<h1 *ngIf = "leaderAdded">Leader added successfully</h1>
+
+<form novalidate *ngIf = "!leaderAdded" #leaderForm="ngForm" (ngSubmit)="onSubmit()">
+
+<mat-dialog-content>
+  <p>
+    <mat-form-field>
+      <input matInput placeholder=" name"  [(ngModel)]="leader.name" name="name"  #name="ngModel" required>
+      <mat-error *ngIf="name.errors?.required">Leader name is required</mat-error>
+    </mat-form-field>
+  </p>
+  
+  <p>
+    <mat-form-field>
+      <input matInput placeholder="designation"  [(ngModel)]="leader.designation" name="designation" #designation="ngModel" required>
+      <mat-error *ngIf="designation.errors?.required">designation is required</mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field>
+      <input matInput placeholder="abbr"  [(ngModel)]="leader.abbr" name="abbr" #abbr="ngModel" required>
+      <mat-error *ngIf="abbr.errors?.required">abbr is required</mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-checkbox [(ngModel)]="leader.featured" name="featured">Featured Leader</mat-checkbox>
+  </p>
+  <p>
+    <mat-form-field class="full-width">
+      <textarea matInput placeholder="description"  [(ngModel)]="leader.description" name="description" #description="ngModel" required rows=12></textarea>
+      <mat-error *ngIf="description.errors?.required">description is required</mat-error>
+    </mat-form-field>
+  </p>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <span class="flex-spacer"></span>
+  <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="leaderForm.form.invalid">Add Leader</button>
+</mat-dialog-actions>
+</form>
+

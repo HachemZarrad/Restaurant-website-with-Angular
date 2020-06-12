@@ -1,0 +1,26 @@
+<div class="container"
+     fxLayout="column"
+     fxLayoutGap="10px">
+
+     
+
+  <div fxFlex *ngIf="promotions" [@expand]>
+    <mat-grid-list cols="2" rowHeight="200px">
+      <mat-grid-tile *ngFor="let promo of promotions" [routerLink]="['/promodetail', promo._id]" appHighlight>
+        <img height="200px" src="{{ baseURL + promo.image}}" alt={{promo.name}}>
+        <mat-grid-tile-footer>
+          <h1 mat-line>{{promo.name | uppercase}}</h1>
+          <span class="flex-spacer"></span>
+          
+        </mat-grid-tile-footer>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <div [hidden]="promotions || errMess">
+      <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+  </div>
+  <div *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
+  </div>
+</div>

@@ -1,9 +1,12 @@
+import { Comment } from './comment';
+
 export class Promotion {
-    id: string;
+    _id: string;
     name: string;
     image: string;
     label: string;
     price: string;
     featured: boolean;
     description: string;
+    comments: Comment[];
 }

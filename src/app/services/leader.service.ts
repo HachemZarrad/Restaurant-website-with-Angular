@@ -1,32 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Leader } from '../shared/leader';
-import { resolve } from 'url';
-import { HttpClientModule } from '@angular/common/http';
-import { delay, map, catchError } from 'rxjs/operators';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseURL } from '../shared/baseurl';
 import { ProcessHTTPMsgService } from './process-httpmsg.service';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class LeaderService {
 
-  constructor(private http: HttpClient, 
-    private processHttpMsgService: ProcessHTTPMsgService) { }
+  constructor(private http: HttpClient,
+    private processHTTPMsgService: ProcessHTTPMsgService) { }
 
-  getLeaders(): Observable <Leader[]> {
-    return this.http.get<Leader[]>(baseURL + 'leadership').pipe(catchError(this.processHttpMsgService.handleError));
-    
-  }
-  getLeader(id : String): Observable <Leader> {
-    return this.http.get<Leader>(baseURL + 'leadership' + id).pipe(catchError(this.processHttpMsgService.handleError));
+  getLeaders(): Observable<Leader[]> {
+    return this.http.get<Leader[]>(baseURL + 'leaders')
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
-  getFeaturedLeader(): Observable <Leader> {
-    return this.http.get<Leader[]>(baseURL + 'leadership?featured=true').pipe(map(leaders => leaders[0])).pipe(catchError(this.processHttpMsgService.handleError));
-  
+  getLeader(id: string): Observable<Leader> {
+    return this.http.get<Leader>(baseURL + 'leaders/' + id)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  getFeaturedLeader(): Observable<Leader> {
+    return this.http.get<Leader[]>(baseURL + 'leaders?featured=true').pipe(map(leaders => leaders[0]))
+      .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  getLeaderIds(): Observable<number[] | any> {
+    return this.getLeaders().pipe(map(leaders => leaders.map(leader => leader._id)))
+      .pipe(catchError(error => error));
   }
 }

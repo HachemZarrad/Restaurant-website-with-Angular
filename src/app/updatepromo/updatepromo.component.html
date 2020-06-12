@@ -1,0 +1,83 @@
+<div class="container"
+    fxLayout="row wrap"
+    fxLayout.sm="column"
+    fxLayout.xs="column"
+    fxLayoutAlign.gt-md="space-around center"
+    fxLayoutGap="10px" 
+    fxLayoutGap.xs="0">
+
+  <div fxFlex="100">
+    <div>
+      <h3 *ngIf="promo">{{promo.name | uppercase}}</h3>
+      <hr>
+    </div>
+  </div>
+
+  <div fxFlex="40" *ngIf="promo" [@visibility]="visibility" [@expand]>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <h3>{{promo.name | uppercase}}</h3>
+        </mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="{{ baseURL + promo.image}}" alt={{promo.name}}>
+      <mat-card-content>
+        <p>{{promo.description}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions style="margin-left: 50px;">
+        <button mat-button [routerLink]="['/updatePromo', prev]"><span class="fa fa-chevron-left fa-lg"></span></button>
+        <button mat-button (click)="goBack()"><span class="fa fa-arrow-left fa-lg"></span></button>
+        <button mat-button><span class="fa fa-share fa-lg"></span></button>
+        <span class="flex-spacer"></span>
+        <button mat-button [routerLink]="['/updatePromo', next]"><span class="fa fa-chevron-right fa-lg"></span></button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+
+  <form novalidate  #promoForm="ngForm" *ngIf="promo" style="width: 450px;">
+    <input  type="file" name="image" (change)="upload($event)"/> <br><br>
+    <mat-dialog-content>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder=" name"  [(ngModel)]="promo.name" name="name"  #name="ngModel" required>
+          <mat-error *ngIf="name.errors?.required">promo name is required</mat-error>
+        </mat-form-field>
+      </p>
+      
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="label"  [(ngModel)]="promo.label" name="label" #label="ngModel">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="price"  [(ngModel)]="promo.price" name="label" #price="ngModel" required>
+          <mat-error *ngIf="price.errors?.required">price is required</mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-checkbox [(ngModel)]="promo.featured" name="featured">Featured promo</mat-checkbox>
+      </p>
+      <p>
+        <mat-form-field class="full-width">
+          <textarea matInput placeholder="description"  [(ngModel)]="promo.description" name="description" #description="ngModel" required rows=12></textarea>
+          <mat-error *ngIf="description.errors?.required">description is required</mat-error>
+        </mat-form-field>
+      </p>
+    </mat-dialog-content>
+    
+    <mat-dialog-actions>
+      <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="promoForm.form.invalid" (click) = "updatePromo(promo)" routerLink = '/promoManagement'>Update Promotion Details</button>
+    </mat-dialog-actions>
+    </form>
+    
+  <div [hidden]="promo || errMess">
+      <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+  </div>
+  <div *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
+  </div>
+</div>

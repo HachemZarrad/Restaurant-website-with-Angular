@@ -1,0 +1,26 @@
+<div *ngIf = "user" >
+ 
+    <mat-card style="width: 450px;" class="marginCard">
+    <p>First Name: {{user.firstname}}</p>
+    <p>Last Name: {{user.lastname}}</p>
+    <p>Username: {{user.username}}</p>
+    <p>admin: {{user.admin}}</p>
+    <button (click) = "goBack()" class="button">Back</button>
+    <button  (click)="alert(user._id)" class="button"> Delete </button>
+  </mat-card>
+   
+  <mat-grid-tile-footer>
+    <span class="flex-spacer"></span>
+  </mat-grid-tile-footer>
+
+</div>
+
+<div [hidden]="user || errMess">
+  <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+</div>
+
+<div *ngIf="errMess">
+<h2>Error</h2>
+<h4>{{errMess}}</h4>
+</div>
+

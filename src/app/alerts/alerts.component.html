@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">
+  Alert!!
+<span class="flex-spacer"></span>
+<button mat-button mat-dialog-close>&times;</button>
+</mat-toolbar>
+
+<div *ngIf="errMess">
+<h2>Error</h2>
+<h4>{{errMess}}</h4>
+</div>
+
+<h1 *ngIf = "!delete">Are you sure you want to permanently remove all the feedbacks</h1>
+<h1 *ngIf = "delete">Feedbacks removed successfully</h1>
+
+<mat-dialog-actions>
+  <span class="flex-spacer"></span>
+  <button *ngIf = "!delete" mat-button mat-dialog-close>NO</button>
+  <button *ngIf = "delete" mat-button mat-dialog-close class="background-primary text-floral-white">Cancel</button>
+  <button *ngIf = "!delete" mat-button class="background-primary text-floral-white" (click) = "removeFeedbacks()" >Yes</button>
+</mat-dialog-actions>

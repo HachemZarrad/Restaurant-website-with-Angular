@@ -1,0 +1,84 @@
+<div class="container"
+    fxLayout="row wrap"
+    fxLayout.sm="column"
+    fxLayout.xs="column"
+    fxLayoutAlign.gt-md="space-around center"
+    fxLayoutGap="10px" 
+    fxLayoutGap.xs="0">
+
+  <div fxFlex="100">
+    <div>
+      <h3 *ngIf="leader">{{leader.name | uppercase}}</h3>
+      <hr>
+    </div>
+  </div>
+
+  <div fxFlex="40" *ngIf="leader" [@visibility]="visibility" [@expand]>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <h3>{{leader.name | uppercase}}</h3>
+        </mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="{{ baseURL + leader.image}}" alt={{leader.name}}>
+      <mat-card-content>
+        <p>{{leader.description}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions style="margin-left: 50px;">
+        <button mat-button [routerLink]="['/leaderdetail', prev]"><span class="fa fa-chevron-left fa-lg"></span></button>
+        <button mat-button (click)="goBack()"><span class="fa fa-arrow-left fa-lg"></span></button>
+        <button mat-button><span class="fa fa-share fa-lg"></span></button>
+        <span class="flex-spacer"></span>
+        <button mat-button [routerLink]="['/leaderdetail', next]"><span class="fa fa-chevron-right fa-lg"></span></button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+
+  <form novalidate  #leaderForm="ngForm" *ngIf="leader">
+    <input  type="file" name="image" (change)="upload($event)"/> <br><br>
+    <mat-dialog-content>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder=" name"  [(ngModel)]="leader.name" name="Leadername"  #Leadername="ngModel" required>
+          <mat-error *ngIf="Leadername.errors?.required">Leader name is required</mat-error>
+        </mat-form-field>
+      </p>
+      
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="designation"  [(ngModel)]="leader.designation" name="designation" #designation="ngModel" required>
+          <mat-error *ngIf="designation.errors?.required">designation is required</mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="abbr"  [(ngModel)]="leader.abbr" name="abbr" #abbr="ngModel" required>
+          <mat-error *ngIf="abbr.errors?.required">abbr is required</mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-checkbox [(ngModel)]="leader.featured" name="featured">Featured Leader</mat-checkbox>
+      </p>
+      <p>
+        <mat-form-field  style="width: 600px;">
+          <textarea matInput placeholder="description"  [(ngModel)]="leader.description" name="description" #description="ngModel" required rows=12></textarea>
+          <mat-error *ngIf="description.errors?.required">description is required</mat-error>
+        </mat-form-field>
+      </p>
+    </mat-dialog-content>
+    
+    <mat-dialog-actions>
+      <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="leaderForm.form.invalid" (click) = "updateLeader(leader)" routerLink = '/leadersMangement'>Update Leader Details</button>
+    </mat-dialog-actions>
+    </form>
+    
+  <div [hidden]="leader || errMess">
+      <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+  </div>
+  <div *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
+  </div>
+</div>

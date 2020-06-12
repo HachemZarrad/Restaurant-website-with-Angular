@@ -7,28 +7,28 @@ import { flyInOut, expand } from '../animations/app.animation';
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
-   // tslint:disable-next-line:use-host-property-decorator
-   host: {
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
     '[@flyInOut]': 'true',
     'style': 'display: block;'
-    },
-    animations: [
-      flyInOut(),
-      expand()
-    ]
+  },
+  animations: [
+    flyInOut(),
+    expand()
+  ]
 })
 export class AboutComponent implements OnInit {
 
   leaders: Leader[];
   errMess: string;
 
-  constructor(private leaderService: LeaderService,
-    @Inject('BaseURL') private baseURL) { }
+  constructor(private leaderservice: LeaderService,
+    @Inject('baseURL') private baseURL) { }
 
   ngOnInit() {
-    this.leaderService.getLeaders()
-    .subscribe((leaders) => this.leaders = leaders, errmess => this.errMess = errmess);
+    this.leaderservice.getLeaders()
+      .subscribe(leaders => this.leaders = leaders,
+        errmess => this.errMess = <any>errmess);
   }
-  
 
 }
