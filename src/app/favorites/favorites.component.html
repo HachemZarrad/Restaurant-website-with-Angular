@@ -38,7 +38,14 @@ fxLayoutGap="10px">
 </div>
 </div>
 
-<ng-template #loading>
+<ng-template #loading *ngIf = "!empty">
   <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
 </ng-template>
+</div>
+
+<div *ngIf = "empty">
+  <mat-card class="marginDiv">
+  <h4 style="margin-left: 20px;">You don't have favorite yet </h4>
+  <button routerLink = '/menu' style="background-color: orange;" class="menuButton">Menu</button>
+</mat-card>
 </div>

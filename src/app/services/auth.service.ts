@@ -5,7 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 
 import { baseURL } from '../shared/baseurl';
 import { ProcessHTTPMsgService } from './process-httpmsg.service';
-import { AdministrationService } from './administration.service';
+
 
 interface AuthResponse {
   status: string;
@@ -116,8 +116,8 @@ export class AuthService {
       return this.http.post<AuthResponse>(baseURL + 'users/signup',
        {'username': user.username, 'password': user.password})
        .pipe( map(res => {
-           this.storeUserCredentials({username: user.username, token: res.token, userId: res.userId});
-           return {'success': true, 'username': user.username, 'userId': res.userId };
+           this.storeUserCredentials({username: user.username, token: res.token, admin1: res.admin, admin: user.admin, userId: res.userId});
+           return {'success': true, 'username': user.username, 'admin': res.admin, 'userId': res.userId };
        }),
         catchError(error => this.processHTTPMsgService.handleError(error)));
    }

@@ -4,7 +4,7 @@
 <button mat-button mat-dialog-close (click) = 'refresh()'>&times;</button>
 </mat-toolbar>
 
-<div *ngIf="errMess">
+<div *ngIf="errMess" style="color: red;">
 <h2>Error</h2>
 <h4>{{errMess}}</h4>
 </div>

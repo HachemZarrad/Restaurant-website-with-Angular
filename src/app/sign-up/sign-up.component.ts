@@ -23,7 +23,17 @@ export class SignUpComponent implements OnInit {
     this.authService.signUp(this.user)
       .subscribe(res => {
         if (res.success) {
-          this.dialogRef.close(res.success);
+          this.authService.logOut();
+          this.authService.logIn(this.user)
+      .subscribe(res => {
+        if (res.success) {
+          console.log(res);
+        }},
+        error => {
+          console.log(error);
+          this.errMess = error;
+        }); 
+          this.dialogRef.close(res.admin);
         } else {
           console.log(res);
         }
@@ -32,6 +42,10 @@ export class SignUpComponent implements OnInit {
         console.log(error);
         this.errMess = error;
       });
+      
+      
+
+      
   }
 
 }

@@ -83,7 +83,7 @@ export class DishesManagementComponent implements OnInit {
     
       onSelectDish(dish: Dish) {
         this.listOfDishes = [];
-        this.router.navigate(['/dishdetail', dish._id]);
+        this.router.navigate(['/updateDish', dish._id]);
     
       }
     

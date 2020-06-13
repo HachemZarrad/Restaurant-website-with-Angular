@@ -4,7 +4,7 @@
 <button mat-button mat-dialog-close (click) = 'refresh()'>&times;</button>
 </mat-toolbar>
 
-<div *ngIf="errMess">
+<div *ngIf="errMess" style="color: red;">
 <h2>Error</h2>
 <h4>{{errMess}}</h4>
 </div>
@@ -48,7 +48,7 @@
   </mat-dialog-content>
   
   <mat-dialog-actions>
-    <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="promoForm.form.invalid" (click) = "addPromo(promo)" routerLink = '/promoManagement'>Update Promotion Details</button>
+    <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="promoForm.form.invalid" (click) = "addPromo(promo)" routerLink = '/promoManagement'>Add Promotion </button>
   </mat-dialog-actions>
   </form>
 

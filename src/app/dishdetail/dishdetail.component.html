@@ -25,11 +25,11 @@
         <p>{{dish.description}}
         </p>
       </mat-card-content>
-      <mat-card-actions>
+      <mat-card-actions style="margin-left: 60px;">
         <button mat-button [routerLink]="['/dishdetail', prev]"><span class="fa fa-chevron-left fa-lg"></span></button>
         <button mat-button (click)="goBack()"><span class="fa fa-arrow-left fa-lg"></span></button>
         <button mat-button (click)="addToFavorites()"><span class="{{favorite ? 'fa fa-heart fa-lg' : 'fa fa-heart-o fa-lg'}}"></span></button>
-        <button mat-button><span class="fa fa-share fa-lg"></span></button>
+        
         <span class="flex-spacer"></span>
         <button mat-button [routerLink]="['/dishdetail', next]"><span class="fa fa-chevron-right fa-lg"></span></button>
       </mat-card-actions>
@@ -52,11 +52,6 @@
             <mat-icon>delete</mat-icon>
             <span>Delete</span>
           </button>
-          <!-- <button mat-menu-item [disabled] = "!authorized" (click) ="allowEdit(comment.author._id, comment.isAuthor)">
-            
-            <mat-icon>edit</mat-icon>
-            <span>Edit</span>
-          </button> -->
         </mat-menu>
         
         
@@ -65,11 +60,6 @@
         <p matLine>
           <span> -- {{comment.author.username}} {{comment.author.lastname}} {{commentForm.value.date | date}} </span>
         </p>
-        
-        <!-- <input type="text" *ngIf = "edit && comment.isAuthor"   [(ngModel)]="comment.comment">
-        <span class="flex-spacer"></span>
-        <button mat-button  *ngIf = "edit && comment.isAuthor" (click) = "cancelEdit()">Cancel</button>
-        <button type="submit" mat-button class="background-primary text-floral-white" (click) = "UpdateComment(dish._id, comment._id, comment)" *ngIf = "edit && comment.isAuthor">Edit</button> -->
      
       </mat-list-item>
 

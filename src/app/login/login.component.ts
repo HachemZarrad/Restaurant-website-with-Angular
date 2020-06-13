@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import { AuthService } from '../services/auth.service';
-import { User } from '../shared/user';
 import { AdministrationService } from '../services/administration.service';
 
 @Component({

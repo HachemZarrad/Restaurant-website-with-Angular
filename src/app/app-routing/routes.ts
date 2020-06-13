@@ -12,7 +12,6 @@ import { LeadersManagementComponent } from '../leaders-management/leaders-manage
 import { DishesManagementComponent } from '../dishes-management/dishes-management.component';
 import { ListOfUsersComponent } from '../list-of-users/list-of-users.component';
 import { FeedbacksComponent } from '../feedbacks/feedbacks.component';
-import { AlertsComponent } from '../alerts/alerts.component';
 import { PromotionsComponent } from '../promotions/promotions.component';
 import { PromoDetailComponent } from '../promodetail/promodetail.component';
 import { LeaderformComponent } from '../leaderform/leaderform.component';

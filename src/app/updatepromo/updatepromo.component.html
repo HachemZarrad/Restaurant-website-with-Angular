@@ -27,8 +27,7 @@
       </mat-card-content>
       <mat-card-actions style="margin-left: 50px;">
         <button mat-button [routerLink]="['/updatePromo', prev]"><span class="fa fa-chevron-left fa-lg"></span></button>
-        <button mat-button (click)="goBack()"><span class="fa fa-arrow-left fa-lg"></span></button>
-        <button mat-button><span class="fa fa-share fa-lg"></span></button>
+        <button mat-button routerLink = "/promoManagement"><span class="fa fa-arrow-left fa-lg"></span></button>
         <span class="flex-spacer"></span>
         <button mat-button [routerLink]="['/updatePromo', next]"><span class="fa fa-chevron-right fa-lg"></span></button>
       </mat-card-actions>

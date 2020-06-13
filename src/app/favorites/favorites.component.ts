@@ -19,25 +19,34 @@ import { flyInOut, expand } from '../animations/app.animation';
 })
 export class FavoritesComponent implements OnInit {
 
-  favorites: Favorite[];
+  favorites: Favorite[] = [];
   delete: boolean;
   errMess: string;
+  empty = false;
 
   constructor(private favoriteService: FavoriteService,
     @Inject('baseURL') private baseURL) { }
 
   ngOnInit() {
     this.favoriteService.getFavorites()
-      .subscribe(favorites => this.favorites = favorites,
+      .subscribe(favorites => {this.favorites = favorites
+      if(!favorites || this.favorites == [] || !this.favorites){
+          this.empty = true;
+      }},
         errmess => this.errMess = <any>errmess);
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 
   deleteFavorite(id: string) {
     console.log('Deleting Dish ' + id);
     this.favoriteService.deleteFavorite(id)
-      .subscribe(favorites => this.favorites = <Favorite[]>favorites,
+      .subscribe(favorites =>{ this.favorites = <Favorite[]>favorites, this.ngOnInit();},
         errmess => this.errMess = <any>errmess);
     this.delete = false;
+    
   }
 
 }

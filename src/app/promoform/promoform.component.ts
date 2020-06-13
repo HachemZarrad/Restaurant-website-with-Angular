@@ -48,13 +48,22 @@ export class PromoformComponent implements OnInit {
     this.administrationService.postPromo(this.promo)
       .subscribe(res => {
           this.promoAdded = true;
+          this.errMess = "";
           this.administrationService.getPromotions()
          .subscribe(promotions => this.promotions = promotions,
           errmess => this.errMess = <any>errmess);
         },
       error => {
         console.log(error);
-        this.errMess = error;
+        if(this.promo.image == ""){
+          this.errMess = "Promotion image is required!";
+        }
+        else if(error == "500 - Internal Server Error Http failure response for http://localhost:3000/promotions/: 500 Internal Server Error"){
+          this.errMess = "Promotion name already exists!!";
+        }
+        else{
+          this.errMess = error;
+        }
       });
   }
 

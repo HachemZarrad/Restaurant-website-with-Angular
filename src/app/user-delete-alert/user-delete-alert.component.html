@@ -15,6 +15,6 @@
 <mat-dialog-actions>
   <span class="flex-spacer"></span>
   <button *ngIf = "!delete" mat-button mat-dialog-close>NO</button>
-  <button *ngIf = "delete" mat-button mat-dialog-close class="background-primary text-floral-white" (click) = "refresh()">Cancel</button>
+  <button *ngIf = "delete" mat-button mat-dialog-close class="background-primary text-floral-white" (click) = "refresh()" >Ok</button>
   <button *ngIf = "!delete" mat-button class="background-primary text-floral-white" (click) = "removeClient()" >Yes</button>
 </mat-dialog-actions>

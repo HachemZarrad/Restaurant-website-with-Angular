@@ -50,11 +50,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     openSignUpForm() {
-
       const signUpRef = this.dialog.open(SignUpComponent, {width: '500px', height: '450px'});
       signUpRef.afterClosed()
         .subscribe(result => {
-          console.log(result);
+          if(result){
+            console.log(result);
+            this.adminstration = result;
+          }  
         });
     }
 

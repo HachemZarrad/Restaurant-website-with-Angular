@@ -26,7 +26,7 @@ export class LeaderformComponent implements OnInit {
   errMess: String;
   leaderAdded = false;
   leaders: Leader[];
-  buttonClicked = false;
+  
   
   constructor(public dialogRef: MatDialogRef<LeaderformComponent>,
     private administrationService: AdministrationService,
@@ -51,15 +51,24 @@ export class LeaderformComponent implements OnInit {
     this.administrationService.postLeader(this.leader)
       .subscribe(res => {
           this.leaderAdded = true;
+          this.errMess = "";
           this.administrationService.getLeaders()
          .subscribe(leaders => this.leaders = leaders,
           errmess => this.errMess = <any>errmess);
         },
       error => {
         console.log(error);
-        this.errMess = error;
+        if(this.leader.image == ""){
+          this.errMess = "Leader image is required!";
+        }
+        else if(error == "500 - Internal Server Error Http failure response for http://localhost:3000/leaders/: 500 Internal Server Error"){
+          this.errMess = "Leader name already exists!!";
+        }
+        else{
+          this.errMess = error;
+        }
       });
-      this.buttonClicked = true;
+      
   }
 
   refresh(): void {

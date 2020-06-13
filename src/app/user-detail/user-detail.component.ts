@@ -42,9 +42,9 @@ export class UserDetailComponent implements OnInit {
     const userDeleteAlert = this.dialog.open(UserDeleteAlertComponent, {width: '500px', height: '450px'});
       userDeleteAlert.afterClosed()
       .subscribe(result => {
-        this.router.navigate(['/usersList']);
         console.log(result);
       });
+      this.router.navigate(['/usersList']);
   }
 
 }

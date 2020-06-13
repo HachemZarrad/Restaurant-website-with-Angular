@@ -26,6 +26,7 @@ export class DishformComponent implements OnInit {
   errMess: String;
   dishAdded = false;
   dishes: Dish[];
+  
  
   constructor(public dialogRef: MatDialogRef<DishformComponent>,
     private administrationService: AdministrationService,
@@ -41,6 +42,7 @@ export class DishformComponent implements OnInit {
     .subscribe(res => {this.dish.image = '/images/' + res.filename ;
     console.log(this.dish.image);},
       errmess => this.errMess = <any>errmess);
+      
   }
 
   addDish(dish) {
@@ -48,13 +50,23 @@ export class DishformComponent implements OnInit {
     this.administrationService.postDish(dish)
       .subscribe(res => {
           this.dishAdded = true;
+          this.errMess = "";
           this.dishService.getDishes()
          .subscribe(dishes => this.dishes = dishes,
           errmess => this.errMess = <any>errmess);
         },
       error => {
         console.log(error);
-        this.errMess = error;
+        if(this.dish.image == ""){
+          this.errMess = "Dish image is required!";
+        }
+        else if(error == "500 - Internal Server Error Http failure response for http://localhost:3000/dishes/: 500 Internal Server Error"){
+          this.errMess = "Dish name already exists!!";
+        }
+        else{
+          this.errMess = error;
+        }
+        
       });
   }
 
